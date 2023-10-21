@@ -1,8 +1,7 @@
 import { GameQuery } from "../App";
 import APIClient, { FetchResponse } from "../services/apiClient";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { Platform } from "./usePlatforms";
-import { useInView } from "framer-motion";
 
 const apiClient = new APIClient<Game>("/games");
 export interface Game {
@@ -20,8 +19,8 @@ const useGames = (gameQuery: GameQuery) =>
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
         params: {
-          genres: gameQuery.genre?.id,
-          parent_platforms: gameQuery.platform?.id,
+          genres: gameQuery.genreId,
+          parent_platforms: gameQuery.platformId,
           ordering: gameQuery.sortOrder,
           search: gameQuery.searchText,
           page: pageParam,
